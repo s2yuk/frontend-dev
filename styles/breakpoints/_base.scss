@@ -1,0 +1,371 @@
+/******************************************************************
+
+Stylesheet: ベーススタイル =>スマホサイズ(モバイルファーストの場合)
+
+******************************************************************/
+body{
+  // font-family: 'Kameron', serif; //２行になると下の行に上書きされるので１行にまとめる
+  // ローマ字→日本語の順で書く（日本語にもアルファベットがあるから先に書くと次のフォントに移行しない）
+  font-family: 'Kameron','Noto Sans JP', sans-serif;
+}
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+.font-sm{
+  font-size: 14px; //ブラウザのデフォルトは16px
+}
+.font-md{
+  font-size: 17px;
+}
+.font-lr{   
+  font-size: 17px;
+}
+.font-lg{
+  font-size: 25px;
+}
+// margin-bottom
+.mb-sm{
+  margin-bottom: 16px !important;
+}
+.mb-lg{
+  margin-bottom: 80px !important;
+}
+//padding-bottom
+.pb-sm{
+  padding-bottom: 16px !important;
+}
+.pb-lg{
+  padding-bottom: 80px !important;
+}
+.content-width{
+  width: 90%;
+  margin: 0 auto;
+  // 見栄えのために横幅の最大値は設定しておくこと
+  max-width: $contentMaxWidth;
+
+}
+.main-title{
+  //継承にしておくとメディアクエリで画面サイズ別に設定し直さなくてよい
+  @extend .font-lg; 
+  font-weight: 600;
+  margin-bottom: 0;
+  display: block;
+}
+.sub-title{
+  @extend .font-sm;
+  color: $cSubTitle;
+}
+.flex{
+  display:flex;
+  flex-direction:column;
+}
+.purple{
+  color: $cWineRed;
+}
+// 
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $navHeight;
+  background-color: transparent; //透明
+  z-index: 100;
+  display: flex;
+  align-items: center;
+
+  &.triggered{
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow:10px 0 25px -10px rgba(0,0,0,0.5);
+  }
+
+  &__inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @extend .content-width;
+  }
+  &__nav{
+    display: none;
+  }
+  &__ul{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: center;//上下の中央揃え
+  }
+  &__li{
+    padding: 0;
+    margin-left: 20px;
+    list-style: none;
+
+    & > a {
+      color: $cBlack;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+  & .logo{
+    justify-content: center;
+    font-size: 38px;
+  }
+
+}
+#container{
+  transition: transform 0.5s, box-shadow 0.5s;
+  position: relative;
+  background-color: $cWhite;
+  z-index: 10;
+}
+
+// #content{ 
+//    padding-top: $navHeight;  //->.heroにつけたため不要
+// }
+#main-content{
+  position: relative;
+  z-index: 0;
+}
+main{
+  position: relative;
+  z-index: -1;
+}
+.travel{
+  @extend .content-width;
+  @extend .mb-lg;
+
+  &__inner{
+    @extend .flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: $cBgGray;
+
+    //陰用のスタッキングコンテキスト用
+    position: relative; 
+    z-index: 0;
+  }
+
+  &__img{
+    height: 300px;
+    @extend .mb-sm;
+    //影用
+    transition: box-shadow 1ms linear 0.8s;
+
+
+    & > img{
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      // 影が上に来る用
+      position: relative;
+      z-index: -1;
+    }
+
+    &.inview{
+      box-shadow: inset 0 0 30px $cBlack; 
+    }
+  }
+  &__texts{
+    @extend .pb-sm;
+
+    &.inview {  //&__titleの中から&__textsに移動
+      & .travel__title::before{
+        transform: translateY(-50%) scaleX(1);
+      }
+    }
+  }
+  &__title{
+    position: relative;
+    @include p-base(
+      $display:none, 
+      $width: 100px,
+      $height: 1px,
+      $top: 50%,
+      $left: -120px
+      ){
+      background-color: $cBlack;
+      transform: translateY(-50%) scaleX(0);
+      transition: transform 0.3s ease 1.6s;
+      transform-origin: right;
+    }
+  
+  }
+  &__sub{
+    @extend .mb-sm;
+  }
+}
+.houses{
+  // @extend .content-width;  // 継承
+  @extend .mb-lg;
+  &__inner{
+    @extend .flex;
+  }
+  &__title{
+    @extend .font-lr;
+    @extend .mb-sm;
+  }
+  &__btn{
+    text-align: center;
+    flex-basis: 100%;
+  }
+}
+.popular{
+  
+  &__header{
+    @extend .content-width;
+  }
+  &__inner{ 
+    position: relative;
+
+    // &::before{           //背景
+    //   content: '';
+    //   position: absolute;
+    //   left: 0;
+    //   bottom: 0;
+    //   width: 100%;
+    //   height: 80%;
+    //   background-color: $cBgGray;
+    //   z-index: -2;
+    // }
+    // ↓
+    @include p-base($top:10%, $height:90%){
+      // この部分の記述が@contentに渡る
+      background :$cBgGray;
+      z-index: -2;
+    };
+  }
+
+  &__container{
+    @extend .flex;
+    @extend .content-width;
+    @extend .pb-sm;
+    // position: relative;
+    // z-index: 2;
+  }
+  &__title{
+    @extend .font-md;
+    @extend .mb-sm;
+  }
+  &__btn{
+    // 写真の数に依らずボタンは必ず次の行になるようにflex-basis:100％にすることで改行する
+    flex-basis: 100%;
+    text-align: center;
+    @extend .mb-lg;
+  }
+  &__img{
+    height: 150px;
+    overflow: hidden;
+    margin-bottom: 5px;
+
+    & > img{
+      object-fit: cover;
+      // object-position: center; //デフォルトはcenter
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+.logo{
+  font-size: 42px;
+  display: flex;
+
+ &__img{
+  width: 0.7em;
+ }
+ &__world{
+  color: $cWineRed;
+ }
+}
+.footer{
+  padding: 60px 0;
+  @extend .content-width;
+  
+  &__nav{
+    @extend .flex;
+    justify-content: space-between;//両端
+    align-items: center;
+    text-align: center;
+  }
+
+  &__ul{
+    @extend .flex;
+    padding: 0;
+    margin: 0;
+  }
+  &__li{
+    padding: 0;
+    margin: 10px;
+    list-style: none;
+
+    & > a {
+      color: $cSubTitle;
+    }
+  }
+  & .logo{
+    justify-content: center;
+    font-size: 38px;
+  }
+}
+.side{
+  display: none;
+  position: fixed;
+  top: 70%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+
+  & .tween-animate-title{ // a,spanから名前変更
+    color: $cBlack;
+    text-decoration: none !important;
+    margin: 0 40px;
+    vertical-align: middle; //inline要素に対して上下中央揃えになる
+    letter-spacing: 2px; //追加
+  }
+
+  &.left{
+    left : -50px; //画面外に出しておき、アニメーションで内側にいれる
+
+    &.inview{
+      left: 50px;
+    }
+
+    & .side__inner{
+      transform: rotate(-90deg);
+      transform-origin: top left;
+    }
+  }
+  &.right{
+    right: -50px;
+
+    &.inview{
+      right: 50px;
+    }
+    & .side__inner{
+      transform: rotate(90deg);
+      transform-origin: top right;
+    }
+  }
+}
+.icon{
+  position: relative;
+  @include p-base(
+    $left: -20px,
+    $top: 50%,
+    $width:1em,
+    $height:1em
+  ){
+    transform: translateY(-50%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  &.twitter{
+    &::before{
+      background-image: url(/images/twitter.svg);
+    }
+  }
+  &.fb{
+    &::before{
+      background-image: url(/images/facebook.svg);
+    }
+  }
+}

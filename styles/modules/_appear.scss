@@ -1,0 +1,39 @@
+//sass only  mapとして定義されたものを１つずつ定義していく
+// @each{
+// }
+// mapの情報を格納 修正箇所のみ変数化
+$pattern : (
+  //key : value
+  "up" : translateY(6px),       //元を下に８px
+  "down" : translateY(-6px),
+  "left" : translateX(40px),
+  "right" : translateX(-40px)
+);
+@each $key, $value in $pattern{
+  // ループで変更するとこのみ分離
+  .appear.#{$key} {   
+    & .item {
+      transform: $value;   
+    }
+  }
+}
+
+// 共通のCSSのみ
+.appear {   
+  & .item {
+    transition: all 0.8s;
+    opacity: 0;
+  }
+  &.inview {    //表示中
+    & .item{
+      opacity: 1;
+      transform: none;            //高さ元に戻す
+
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}){
+          transition-delay: $i * 0.1s;
+        }
+      }
+    }
+  }
+}

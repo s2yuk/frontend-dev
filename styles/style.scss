@@ -1,0 +1,44 @@
+@import 'modules/variables';
+@import 'modules/mixin';
+@import 'modules/appear'; //追加
+@import 'modules/hero-slider';
+@import 'modules/text-animation';
+@import 'modules/image-slide';
+@import 'modules/button';
+@import 'modules/mobile-menu';
+
+
+
+// 下に行くほど同じ詳細度だと上書きされるので、モバイルファーストの場合、画面の小さい順に書くこと
+
+// ベースは一番上におくこと
+@import 'breakpoints/base';
+
+// スマホの横置き
+@media screen and (min-width:480px){
+  @import 'breakpoints/480up';
+}
+// タブレット
+@media screen and (min-width:600px){
+  @import 'breakpoints/600up';
+}
+// タブレットの横向き、小さいPC
+@media screen and (min-width:960px){
+  @import 'breakpoints/960up';
+}
+// PC
+@media screen and (min-width:1280px){
+  @import 'breakpoints/1280up';
+}
+
+// Retina display=通常の解像度の２倍 
+//　min-resolution=最低限の解像度単位（ドットパーインチ）
+@media (min-resolution:192dpi),
+    (-webkit-min-device-pixel-ratio: 2){
+      @import 'breakpoints/2x';
+}
+
+//印刷用 
+@media print{
+  @import 'breakpoints/print';
+}

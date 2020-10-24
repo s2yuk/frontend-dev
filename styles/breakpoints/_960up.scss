@@ -1,0 +1,62 @@
+/******************************************************************
+
+Stylesheet: 960px以上のモニタで適用 PC
+
+******************************************************************/
+.font-sm{
+  font-size: 16px; //ブラウザのデフォルトは16px
+}
+.font-md{
+  font-size: 19px;
+}
+.font-lr{   
+  font-size: 23px;
+}
+.font-lg{
+  font-size: 36px;
+}
+// margin
+.mb-lg{
+  margin-bottom: 150px !important;
+}
+//padding
+.pb-lg{
+  padding-bottom: 150px !important;
+}
+// -------ここまでutility
+.header{
+  &__nav{
+    display: block;
+  }
+}
+.mobile-menu{
+  &__btn{
+    display: none;
+  }
+}
+
+.swiper-slide{
+  box-shadow: 0 8px 40px -10px rgba(0,0,0,0.8);
+}
+.travel{
+  &__img{
+    height: 400px;
+  }
+  &__title{
+    &::before{
+      display: block;
+    }
+  }
+  &__description{
+    margin-bottom: 40px;
+  }
+
+}
+.popular{
+  &__item{
+    flex-basis: 25%;
+  }
+  &__img{
+    height: 335px;
+  }
+}
